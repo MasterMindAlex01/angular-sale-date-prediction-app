@@ -5,11 +5,6 @@ const routes: Routes = [
   {
     path: '',
     loadChildren: () => import('./customers/customers.module').then( m => m.CustomersModule ),
-    pathMatch: 'full'
-  },
-  {
-    path: '**',
-    redirectTo: '',
   }
 ];
 

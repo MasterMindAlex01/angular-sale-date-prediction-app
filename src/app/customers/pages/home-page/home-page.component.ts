@@ -1,6 +1,6 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 
-import { CustomerService } from '../../services/customers.service';
+import { CustomerService } from '../../services/customer.service';
 import { SaleDatePrediction } from '../../interfaces/sale-date-prediction.interface';
 import { MatTableDataSource } from '@angular/material/table';
 
