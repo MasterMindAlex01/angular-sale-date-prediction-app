@@ -5,81 +5,173 @@
 
 <div class="grid">
 
-  <div class="col-12 sm:col-6">
+  <div class="col-12">
     <mat-card>
+      <mat-card-title>Order</mat-card-title>
       <mat-card-content>
 
-        <!-- <form class="grid" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
-
-          <mat-form-field class="col-12 sm:col-6">
-            <mat-label>Super héroe</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-              formControlName="superhero"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-12 sm:col-6">
-            <mat-label>Alter ego</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-              formControlName="alter_ego"
-            />
-          </mat-form-field>
+        <form class="grid" [formGroup]="orderForm" (ngSubmit)="onSubmit()">
 
 
-          <mat-form-field class="col-12">
-            <mat-label>Primera aparición</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-              formControlName="first_appearance"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-12">
-            <mat-label>Personajes</mat-label>
-            <input
-              matInput
-              type="text"
-              required
-              formControlName="characters"
-            />
-          </mat-form-field>
-
-          <mat-form-field class="col-12">
-            <mat-label>Creador</mat-label>
+          <mat-form-field class="col-6">
             <mat-select
-              formControlName="publisher"
+              formControlName="empid"
               required
+              placeholder="employee*"
             >
-              <mat-option *ngFor="let publisher of publishers"
-                [value]="publisher.id">
-                {{ publisher.desc }}
+              <mat-option *ngFor="let employee of employeeList"
+                [value]="employee.empid">
+                {{ employee.fullName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-6">
+            <mat-select
+              formControlName="shipperid"
+              required
+              placeholder="shipper*"
+            >
+              <mat-option *ngFor="let shipper of shipperList"
+                [value]="shipper.shipperId">
+                {{ shipper.companyName }}
               </mat-option>
             </mat-select>
           </mat-form-field>
 
           <mat-form-field class="col-12">
-            <mat-label>Alternative Image</mat-label>
             <input
               matInput
               type="text"
-              formControlName="alt_img"
+              required
+              formControlName="shipname"
+              placeholder="ship name*"
             />
           </mat-form-field>
 
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="shipaddress"
+              placeholder="ship address*"
+            />
+          </mat-form-field>
 
-        </form> -->
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="shipcity"
+              placeholder="ship city*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="text"
+              required
+              formControlName="shipcountry"
+              placeholder="Ship Country*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="date"
+              required
+              formControlName="orderdate"
+              placeholder="order date*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="date"
+              required
+              formControlName="requireddate"
+              placeholder="required date*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="date"
+              required
+              formControlName="shippeddate"
+              placeholder="shipped date*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-12">
+            <input
+              matInput
+              type="number"
+              required
+              formControlName="freight"
+              placeholder="freight*"
+            />
+          </mat-form-field>
+
+          <mat-divider class="mb-2"></mat-divider>
+          <div class="col-12">
+            <span>Order Details</span>
+          </div>
+
+          <mat-form-field class="col-12">
+            <mat-select
+              formControlName="productid"
+              required
+              placeholder="product*"
+            >
+              <mat-option *ngFor="let product of productList"
+                [value]="product.productId">
+                {{ product.productName }}
+              </mat-option>
+            </mat-select>
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="number"
+              required
+              formControlName="unitprice"
+              placeholder="unit price*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="number"
+              required
+              formControlName="qty"
+              placeholder="Quantity*"
+            />
+          </mat-form-field>
+
+          <mat-form-field class="col-4">
+            <input
+              matInput
+              type="number"
+              required
+              formControlName="discount"
+              placeholder="discount*"
+            />
+          </mat-form-field>
+
+        </form>
 
         <div class="flex justify-content-between">
 
-
+          <span></span>
           <button
             mat-flat-button
             color="primary"

@@ -58,19 +58,20 @@ export class NewOrderPageComponent implements OnInit {
   ngOnInit(): void {
     if ( !this.saleDatePrediction ) throw Error('saleDatePrediction property is required');
 
-     this.employeeService.getAllEmployeeList().subscribe(result => {
-      this.employeeList = result.data;
-     });
+    this.employeeService.getAllEmployeeList()
+      .subscribe(result => {
+        this.employeeList = result.data;
+      });
 
-     this.shipperService.getAllShipperList()
+    this.shipperService.getAllShipperList()
       .subscribe(result => {
         this.shipperList = result.data;
       });
 
-      this.productService.getAllProductList()
-        .subscribe(result => {
-          this.productList = result.data;
-        })
+    this.productService.getAllProductList()
+      .subscribe(result => {
+        this.productList = result.data;
+      })
   }
 
   get currentOrder(): OrderRequest {
