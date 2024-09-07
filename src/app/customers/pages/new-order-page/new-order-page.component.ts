@@ -7,6 +7,12 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { SaleDatePrediction } from '../../interfaces/sale-date-prediction.interface';
 import { OrderService } from '../../services/order.service';
 import { OrderDetailRequest, OrderRequest } from '../../interfaces/order-request.interface';
+import { EmployeeService } from '../../services/employee.service';
+import { EmployeeResponse } from '../../interfaces/employee-response.interface';
+import { ShipperService } from '../../services/shipper.service';
+import { ShipperResponse } from '../../interfaces/shipper-response.interface';
+import { ProductService } from '../../services/product.service';
+import { ProductResponse } from '../../interfaces/product.interface';
 
 @Component({
   selector: 'customers-new-order-page',
@@ -18,27 +24,32 @@ export class NewOrderPageComponent implements OnInit {
   @Input()
   public saleDatePrediction!: SaleDatePrediction;
 
-  public orderForm = new FormGroup({
-    id:        new FormControl<string>(''),
-    superhero: new FormControl<string>(''),
-    publisher: new FormControl<string>(''),
-    alter_ego: new FormControl(''),
-    first_appearance: new FormControl(''),
-    characters: new FormControl(''),
-    alt_img:    new FormControl(''),
-  });
+  public employeeList: EmployeeResponse[] = [];
+  public shipperList:  ShipperResponse[] = [];
+  public productList:  ProductResponse[] = [];
 
-  public orderDetailForm = new FormGroup({
-    id:        new FormControl<string>(''),
-    superhero: new FormControl<string>(''),
-    publisher: new FormControl<string>(''),
-    alter_ego: new FormControl(''),
-    first_appearance: new FormControl(''),
-    characters: new FormControl(''),
-    alt_img:    new FormControl(''),
+  public orderForm = new FormGroup({
+    empid:        new FormControl<number>(0),
+    orderdate:    new FormControl<Date>(new Date()),
+    requireddate: new FormControl<Date>(new Date()),
+    shippeddate:  new FormControl<Date>(new Date()),
+    shipperid:    new FormControl<number>(0),
+    freight:      new FormControl<number>(0),
+    shipname:     new FormControl(''),
+    shipaddress:    new FormControl(''),
+    shipcity:     new FormControl(''),
+    shipcountry:    new FormControl(''),
+    productid:    new FormControl(0),
+    unitprice:    new FormControl(0),
+    qty:          new FormControl(0),
+    discount:     new FormControl(0),
+
   });
 
   constructor(
+    private employeeService:EmployeeService,
+    private shipperService: ShipperService,
+    private productService: ProductService,
     private orderService: OrderService,
     private snackbar: MatSnackBar,
     private dialog: MatDialog,
@@ -46,6 +57,20 @@ export class NewOrderPageComponent implements OnInit {
 
   ngOnInit(): void {
     if ( !this.saleDatePrediction ) throw Error('saleDatePrediction property is required');
+
+     this.employeeService.getAllEmployeeList().subscribe(result => {
+      this.employeeList = result.data;
+     });
+
+     this.shipperService.getAllShipperList()
+      .subscribe(result => {
+        this.shipperList = result.data;
+      });
+
+      this.productService.getAllProductList()
+        .subscribe(result => {
+          this.productList = result.data;
+        })
   }
 
   get currentOrder(): OrderRequest {
@@ -53,17 +78,14 @@ export class NewOrderPageComponent implements OnInit {
     return order;
   }
 
-  get currentOrderDetail(): OrderDetailRequest {
-    const orderDetail = this.orderDetailForm.value as OrderDetailRequest;
-    return orderDetail;
-  }
-
   onSubmit():void {
 
     if ( this.orderForm.invalid ) return;
 
     this.orderService.addOrder( this.currentOrder )
-      .subscribe( );
+      .subscribe(result => {
+        console.log(result);
+      });
   }
 
   showSnackbar( message: string ):void {
