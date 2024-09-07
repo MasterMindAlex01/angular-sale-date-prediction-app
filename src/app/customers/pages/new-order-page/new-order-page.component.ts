@@ -76,13 +76,30 @@ export class NewOrderPageComponent implements OnInit {
 
   get currentOrder(): OrderRequest {
     const order = this.orderForm.value as OrderRequest;
+    order.custid = this.saleDatePrediction.custid;
+
+    const orderDetail = this.orderForm.value as OrderDetailRequest;
+    order.orderDetails = [];
+    order.orderDetails.push({
+      discount: orderDetail!.discount,
+      unitprice: orderDetail!.unitprice,
+      productid: orderDetail!.productid,
+      qty: orderDetail!.qty
+     });
     return order;
+  }
+
+  get currentOrderDetail(): OrderDetailRequest {
+
+    const orderDetail = this.orderForm.value as OrderDetailRequest;
+    return orderDetail;
   }
 
   onSubmit():void {
 
     if ( this.orderForm.invalid ) return;
 
+    console.log(this.currentOrder);
     this.orderService.addOrder( this.currentOrder )
       .subscribe(result => {
         console.log(result);
