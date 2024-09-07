@@ -89,17 +89,10 @@ export class NewOrderPageComponent implements OnInit {
     return order;
   }
 
-  get currentOrderDetail(): OrderDetailRequest {
-
-    const orderDetail = this.orderForm.value as OrderDetailRequest;
-    return orderDetail;
-  }
-
   onSubmit():void {
 
     if ( this.orderForm.invalid ) return;
 
-    console.log(this.currentOrder);
     this.orderService.addOrder( this.currentOrder )
       .subscribe(result => {
         console.log(result);
