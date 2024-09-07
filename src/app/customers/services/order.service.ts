@@ -5,6 +5,8 @@ import { Observable } from 'rxjs';
 import { PaginatedResult } from '../interfaces/paginated-result.interface';
 import { OrderResponse } from '../interfaces/order-response.interface';
 import { environments } from '../../../environments/environments';
+import { OrderRequest } from '../interfaces/order-request.interface';
+import { Result } from '../interfaces/result.interface';
 
 @Injectable({providedIn: 'root'})
 export class OrderService {
@@ -23,5 +25,10 @@ export class OrderService {
 
     return this.httpClient.get<PaginatedResult<OrderResponse[]>>(
       `${ this.baseUrl}/api/Orders/GetOrderListByCustId`, { params });
+  }
+
+  addOrder(order:OrderRequest):Observable<Result<number>>{
+    return this.httpClient.post<Result<number>>(
+      `${ this.baseUrl}/api/Orders/createOrder`, order);
   }
 }

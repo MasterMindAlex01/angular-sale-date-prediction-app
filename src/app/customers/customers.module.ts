@@ -10,6 +10,7 @@ import { CustomersRoutingModule } from './customers-routing.module';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { NewOrderPageComponent } from './pages/new-order-page/new-order-page.component';
 import { OrdersDialogComponent } from './components/orders-dialog/orders-dialog.component';
+import { NewOrderDialogComponent } from './components/new-order-dialog/new-order-dialog.component';
 
 
 @NgModule({
@@ -18,7 +19,9 @@ import { OrdersDialogComponent } from './components/orders-dialog/orders-dialog.
     HomePageComponent,
     OrdersPageComponent,
     NewOrderPageComponent,
-    OrdersDialogComponent
+
+    OrdersDialogComponent,
+    NewOrderDialogComponent
   ],
   imports: [
     CommonModule,

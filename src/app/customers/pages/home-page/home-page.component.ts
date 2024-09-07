@@ -9,6 +9,7 @@ import { MatSort } from '@angular/material/sort';
 import { MatDialog } from '@angular/material/dialog';
 
 import { OrdersDialogComponent } from '../../components/orders-dialog/orders-dialog.component';
+import { NewOrderDialogComponent } from '../../components/new-order-dialog/new-order-dialog.component';
 
 @Component({
   selector: 'customers-home-page',
@@ -78,6 +79,19 @@ export class HomePageComponent implements AfterViewInit  {
   onShowOrdersDialog( saleDatePrediction:SaleDatePrediction ){
     const dialogRef = this.dialog.open( OrdersDialogComponent, {
       data: saleDatePrediction,
+        height: '400px',
+        width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( !result ) return;
+      console.log({ result });
+    });
+  }
+
+  onShowNewOrderDialog( saleDatePrediction:SaleDatePrediction ){
+    const dialogRef = this.dialog.open( NewOrderDialogComponent, {
+        data: saleDatePrediction,
         height: '400px',
         width: '600px',
     });

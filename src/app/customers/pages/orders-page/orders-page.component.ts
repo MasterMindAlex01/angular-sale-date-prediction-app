@@ -44,7 +44,7 @@ export class OrdersPageComponent implements AfterViewInit {
 
   ngAfterViewInit() {
 
-    if ( !this.saleDatePrediction ) throw Error('Hero property is required');
+    if ( !this.saleDatePrediction ) throw Error('saleDatePrediction property is required');
 
     this.orderService.getOrderListByCustId(this.saleDatePrediction.custid, this.pageIndex+1, this.pageSize)
       .subscribe(result => {
