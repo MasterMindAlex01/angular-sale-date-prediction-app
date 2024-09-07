@@ -1,4 +1,4 @@
-import { Component, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, ViewChild } from '@angular/core';
 
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
@@ -6,13 +6,14 @@ import { MatSort } from '@angular/material/sort';
 
 import { OrderService } from '../../services/order.service';
 import { OrderResponse } from '../../interfaces/order-response.interface';
+import { SaleDatePrediction } from '../../interfaces/sale-date-prediction.interface';
 
 @Component({
   selector: 'customers-orders-page',
   templateUrl: './orders-page.component.html',
   styleUrl: './orders-page.component.css'
 })
-export class OrdersPageComponent {
+export class OrdersPageComponent implements AfterViewInit {
 
   public resultsLength: number = 0;
   public pageSize = 10;
@@ -30,6 +31,9 @@ export class OrdersPageComponent {
   ];
   public dataSource: MatTableDataSource<OrderResponse>;
 
+  @Input()
+  public saleDatePrediction!: SaleDatePrediction;
+
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
@@ -38,10 +42,11 @@ export class OrdersPageComponent {
     this.dataSource = new MatTableDataSource();
   }
 
-
   ngAfterViewInit() {
 
-    this.orderService.getOrderListByCustId(1,this.pageIndex+1, this.pageSize)
+    if ( !this.saleDatePrediction ) throw Error('Hero property is required');
+
+    this.orderService.getOrderListByCustId(this.saleDatePrediction.custid, this.pageIndex+1, this.pageSize)
       .subscribe(result => {
         this.dataSource = new MatTableDataSource(result?.data);
         this.dataSource.paginator = this.paginator;
@@ -55,7 +60,7 @@ export class OrdersPageComponent {
     this.pageSize = event.pageSize;
     this.pageIndex = event.pageIndex;
 
-    this.orderService.getOrderListByCustId(1,this.pageIndex+1, this.pageSize)
+    this.orderService.getOrderListByCustId(this.saleDatePrediction.custid, this.pageIndex+1, this.pageSize)
     .subscribe(result => {
       this.dataSource = new MatTableDataSource(result?.data);
       this.dataSource.sort = this.sort;

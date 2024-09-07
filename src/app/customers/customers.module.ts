@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { ReactiveFormsModule } from '@angular/forms';
 
 import { MaterialModule } from '../material/material.module';
 
@@ -8,6 +9,7 @@ import { HomePageComponent } from './pages/home-page/home-page.component';
 import { CustomersRoutingModule } from './customers-routing.module';
 import { OrdersPageComponent } from './pages/orders-page/orders-page.component';
 import { NewOrderPageComponent } from './pages/new-order-page/new-order-page.component';
+import { OrdersDialogComponent } from './components/orders-dialog/orders-dialog.component';
 
 
 @NgModule({
@@ -15,12 +17,18 @@ import { NewOrderPageComponent } from './pages/new-order-page/new-order-page.com
     LayoutPageComponent,
     HomePageComponent,
     OrdersPageComponent,
-    NewOrderPageComponent
+    NewOrderPageComponent,
+    OrdersDialogComponent
   ],
   imports: [
     CommonModule,
+    ReactiveFormsModule,
     CustomersRoutingModule,
     MaterialModule
+  ],
+  exports: [
+    OrdersPageComponent,
+    NewOrderPageComponent
   ]
 })
 export class CustomersModule { }

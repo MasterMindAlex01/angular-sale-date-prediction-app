@@ -5,7 +5,10 @@ import { SaleDatePrediction } from '../../interfaces/sale-date-prediction.interf
 import { MatTableDataSource } from '@angular/material/table';
 
 import { MatPaginator, PageEvent } from '@angular/material/paginator';
-import { MatSort, Sort } from '@angular/material/sort';
+import { MatSort } from '@angular/material/sort';
+import { MatDialog } from '@angular/material/dialog';
+
+import { OrdersDialogComponent } from '../../components/orders-dialog/orders-dialog.component';
 
 @Component({
   selector: 'customers-home-page',
@@ -25,7 +28,7 @@ export class HomePageComponent implements AfterViewInit  {
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private customerService: CustomerService) {
+  constructor(private customerService: CustomerService, private dialog: MatDialog) {
     // Assign the data to the data source for the table to render
     this.dataSource = new MatTableDataSource();
   }
@@ -72,6 +75,18 @@ export class HomePageComponent implements AfterViewInit  {
 
   }
 
+  onShowOrdersDialog( saleDatePrediction:SaleDatePrediction ){
+    const dialogRef = this.dialog.open( OrdersDialogComponent, {
+      data: saleDatePrediction,
+        height: '400px',
+        width: '600px',
+    });
+
+    dialogRef.afterClosed().subscribe(result => {
+      if ( !result ) return;
+      console.log({ result });
+    });
+  }
 }
 
 

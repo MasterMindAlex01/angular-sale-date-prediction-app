@@ -1,10 +1,11 @@
 
-<mat-card>
-    <mat-toolbar>
-      <span class="text-white">Customer</span>
 
-    </mat-toolbar>
+  <mat-toolbar>
+    <span class="text-white">{{ saleDatePrediction.customerName }}</span>
 
+  </mat-toolbar>
+
+  <div class="overflow-scroll surface-overlay p-3 border-primary-500 border-2 border-round" style="height: 400px">
     <table mat-table [dataSource]="dataSource" matSort>
 
       <!-- orderId Column -->
@@ -53,17 +54,14 @@
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
 
     </table>
-
-    <mat-paginator
-      (page)="handlePageEvent($event)"
-      [length]="resultsLength"
-      [pageSize]="pageSize"
-      [showFirstLastButtons]="showFirstLastButtons"
-      [pageSizeOptions]="pageSizeOptions"
-      [pageIndex]="pageIndex"
-    aria-label="Select page"></mat-paginator>
-
-  </mat-card>
+  </div>
 
 
-
+  <mat-paginator
+    (page)="handlePageEvent($event)"
+    [length]="resultsLength"
+    [pageSize]="pageSize"
+    [showFirstLastButtons]="showFirstLastButtons"
+    [pageSizeOptions]="pageSizeOptions"
+    [pageIndex]="pageIndex"
+  aria-label="Select page"></mat-paginator>

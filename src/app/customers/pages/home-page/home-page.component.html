@@ -33,7 +33,7 @@
         <ng-container matColumnDef="options">
           <th mat-header-cell *matHeaderCellDef mat-sort-header></th>
           <td mat-cell *matCellDef="let row">
-            <button mat-button>
+            <button mat-button (click)="onShowOrdersDialog(row)">
               <span class="text-red">VIEW ORDERS</span>
             </button>
             <button mat-button>
